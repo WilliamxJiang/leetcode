@@ -1,13 +1,14 @@
-# Last updated: 8/8/2025, 5:49:59 PM
+# Last updated: 8/8/2025, 6:15:48 PM
 class Solution:
-    def maxProfit(self, prices: List[int]) -> int:
-        min_price = prices[0]
-        max_profit = 0
+    def isValid(self, s: str) -> bool:
+        stack = []
+        pairs = {')': '(', ']': '[', '}': '{'}
 
-        for price in prices:
-            if min_price > price:
-                min_price = price
-            profit = price - min_price
-            if max_profit < profit:
-                max_profit = profit
-        return max_profit
+        for char in s:
+            if char in pairs:
+                if not stack or stack[-1] != pairs[char]:
+                    return False
+                stack.pop()
+            else:
+                stack.append(char)
+        return not stack
