@@ -1,16 +1,12 @@
-# Last updated: 8/8/2025, 4:42:37 PM
+# Last updated: 8/8/2025, 5:13:49 PM
 class Solution:
-    def isAnagram(self, s: str, t: str) -> bool:
-        if len(s) != len(t):
-            return False
-        
-        count = {}
+    def isPalindrome(self, s: str) -> bool:
+        cleaned = ''
+
         for char in s:
-            count[char] = count.get(char, 0) + 1
-        for char in t:
-            count[char] = count.get(char, 0) - 1
+            if char.isalnum():
+                cleaned += char.lower()
         
-        for valid in count.values():
-            if valid != 0:
-                return False
-        return True
+        if cleaned == cleaned[::-1]:
+            return True
+        return False
