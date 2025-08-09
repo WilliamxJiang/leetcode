@@ -1,26 +1,19 @@
-# Last updated: 8/9/2025, 2:58:27 PM
+# Last updated: 8/9/2025, 4:10:21 PM
 class Solution:
     def characterReplacement(self, s: str, k: int) -> int:
-        #dictionary count freq of characters
-        char_count = {}
-        #left pointer
-        left = 0
-        max_freq = 0
-        max_length = 0
+        count = defaultdict(int)
 
-        #right pointer expanding the window
-        for right in range(len(s)):
-            #add current character to frequency count
-            char_count[s[right]] = char_count.get(s[right], 0) + 1
-            #update the max frequency
-            max_freq = max(max_freq, char_count[s[right]])
+        l = 0
+        maxCount = 0
+        result = 0
 
-            #update window size
-            window_size = right - left + 1
-            if window_size - max_freq > k:
-                #remove leftmost character
-                char_count[s[left]] -= 1
-                #move left pointer to shrink window
-                left += 1
-            max_length = max(max_length, right - left + 1)
-        return max_length
+        for r, char in enumerate(s):
+            count[char] += 1
+            maxCount = max(maxCount, count[char])
+
+            #if replacements needed > k
+            while (r-l+1) - maxCount > k:
+                count[s[l]] -= 1
+                l += 1
+            best = max(maxCount, r-l+1)
+        return best
