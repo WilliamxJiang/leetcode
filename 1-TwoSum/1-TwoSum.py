@@ -1,19 +1,15 @@
-# Last updated: 8/9/2025, 2:01:14 PM
+# Last updated: 8/9/2025, 2:06:29 PM
 class Solution:
-    def isAnagram(self, s: str, t: str) -> bool:
-        if len(s) != len(t):
-            return False
-
-        counter = {}    
-        #1 string
-        for char in s:
-            counter[char] = counter.get(char, 0) + 1
+    def isPalindrome(self, s: str) -> bool:
         
-        #2 string
-        for char in t:
-            counter[char] = counter.get(char, 0) - 1
+        #get rid of spaces and non characters
+        #if string == reversed string
 
-        #check if its 0
-        if set(counter.values()) != {0}:
-            return False
-        return True
+        cleaned = []
+        for char in s:
+            if char.isalnum():
+                cleaned.append(char.lower())
+        
+        if cleaned == cleaned[::-1]:
+            return True
+        return False
