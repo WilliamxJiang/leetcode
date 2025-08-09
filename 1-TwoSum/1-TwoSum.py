@@ -1,4 +1,4 @@
-# Last updated: 8/8/2025, 4:15:00 PM
+# Last updated: 8/9/2025, 1:49:00 PM
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
         seen = {}
@@ -7,4 +7,6 @@ class Solution:
             complement = target - num
             if complement in seen:
                 return [seen[complement], i]
-            seen[num] = i
+            else:
+                seen[num] = i
+        
