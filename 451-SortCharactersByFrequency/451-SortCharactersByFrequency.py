@@ -1,29 +1,18 @@
-# Last updated: 8/10/2025, 3:06:34 PM
+# Last updated: 8/10/2025, 3:40:17 PM
 class Solution:
-    def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
-        #for each day i, look forward to find the first warmer temperature, and then just find diff in days
-        """
-        for i in range (len(temps))
-            for j in range(i+1)
-                if temps[j[ > temps]]
+    def findKthLargest(self, nums: List[int], k: int) -> int:
+        #given integer array nums
+        #given integer k
+        #return kth largest element including duplicates in sorted order
+        #edge cases, k = length of the array if theres only one element, all duplicates = same #
 
-        n = len(temperatures)
-        answer = [0] * n
-        for i in range(n):
-            for j in range(i + 1, n):
-                if temperatures[j] > temperatures[i]:
-                    answer[i] = j - i
-                    break
-        return answer"""
-        #create a stack, iterate over each day, if stack is not empty and the temp > then top of stack
-        n = len(temperatures)
-        answer = [0] * n
-        stack = []
+        #keep a min-heap of about size k - since we want smallest k value
 
-        for i, temp in enumerate(temperatures):
-            #while stack is not empty and current temp > than top stack
-            while stack and temperatures[i] > temperatures[stack[-1]]:
-                prev_index = stack.pop()
-                answer[prev_index] = i - prev_index
-            stack.append(i)
-        return answer
+        min_heap = []
+
+        for num in nums:
+            heapq.heappush(min_heap, num) #adds the element to the heap
+            #if heap has > k values
+            if len(min_heap) > k:
+                heapq.heappop(min_heap)
+        return min_heap[0]
