@@ -1,4 +1,4 @@
-# Last updated: 8/10/2025, 3:05:10 PM
+# Last updated: 8/10/2025, 3:06:34 PM
 class Solution:
     def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
         #for each day i, look forward to find the first warmer temperature, and then just find diff in days
