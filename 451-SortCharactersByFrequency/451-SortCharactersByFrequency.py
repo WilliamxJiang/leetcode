@@ -1,29 +1,29 @@
-# Last updated: 8/10/2025, 2:48:07 PM
+# Last updated: 8/10/2025, 3:05:10 PM
 class Solution:
-    def findAnagrams(self, s: str, p: str) -> List[int]:
-        #for each index i in s, substring of length len(p) and check if its an anagram by count freq of substring and compare w frequency of p
-        """res = []
-        p_count = Counter(p)
-        for i in range(len(s)-len(p) + 1):
-            window = s[i:i+len(p)]
-            if Counter(window) == p_count:
-                res.append(i)
-        return res"""
+    def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
+        #for each day i, look forward to find the first warmer temperature, and then just find diff in days
+        """
+        for i in range (len(temps))
+            for j in range(i+1)
+                if temps[j[ > temps]]
 
-        #initialize 2 counter, one for p, one for current window s
-        #build initial window counter for the fiurst len(p) chars of s
-        #slide the window, char coming in, increment count, char going out, decrement, compare the counters
-        res = []
-        p_count = Counter(p)
-        window_count = Counter(s[:len(p)])
+        n = len(temperatures)
+        answer = [0] * n
+        for i in range(n):
+            for j in range(i + 1, n):
+                if temperatures[j] > temperatures[i]:
+                    answer[i] = j - i
+                    break
+        return answer"""
+        #create a stack, iterate over each day, if stack is not empty and the temp > then top of stack
+        n = len(temperatures)
+        answer = [0] * n
+        stack = []
 
-        if window_count == p_count:
-            res.append(0)
-        for i in range(len(p), len(s)):
-            window_count[s[i]] += 1
-            #remove the leftmost character
-            window_count[s[i-len(p)]] -= 1
-
-            if window_count == p_count:
-                res.append(i-len(p) + 1)
-        return res
+        for i, temp in enumerate(temperatures):
+            #while stack is not empty and current temp > than top stack
+            while stack and temperatures[i] > temperatures[stack[-1]]:
+                prev_index = stack.pop()
+                answer[prev_index] = i - prev_index
+            stack.append(i)
+        return answer
