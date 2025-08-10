@@ -1,18 +1,13 @@
-# Last updated: 8/10/2025, 3:40:17 PM
+# Last updated: 8/10/2025, 3:40:32 PM
 class Solution:
-    def findKthLargest(self, nums: List[int], k: int) -> int:
-        #given integer array nums
-        #given integer k
-        #return kth largest element including duplicates in sorted order
-        #edge cases, k = length of the array if theres only one element, all duplicates = same #
+    def topKFrequent(self, words: List[str], k: int) -> List[str]:
+        #count words, use a dictionary
+        #convert list of tuples - custom comparator, slice top k
 
-        #keep a min-heap of about size k - since we want smallest k value
+        word_count = {}
+        for word in words:
+            word = word.lower()
+            word_count[word] = word_count.get(word, 0) + 1
+        sorted_words = sorted(word_count.items(), key = lambda x: (-x[1], x[0]))
 
-        min_heap = []
-
-        for num in nums:
-            heapq.heappush(min_heap, num) #adds the element to the heap
-            #if heap has > k values
-            if len(min_heap) > k:
-                heapq.heappop(min_heap)
-        return min_heap[0]
+        return [word for word, count in sorted_words[:k]]
